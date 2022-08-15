@@ -17,7 +17,8 @@ class LemburController extends Controller
         $lembur = DB::table('lembur')
             ->select('*')
             ->where('id_admin', Auth::user()->id)
-            ->get();
+            ->latest()
+            ->paginate(10);
         return response()->json([
             'status' => true,
             'message' => 'Get data berhasil',
@@ -35,6 +36,7 @@ class LemburController extends Controller
                 ->orWhere('no_pegawai', 'like', '%' . $key . '%')
                 ->orWhere('status_lembur', 'like', '%' . $key . '%')
                 ->where('lembur.id_admin', Auth::user()->id)
+                ->latest()
                 ->paginate(10);
 
             return $result;
@@ -45,13 +47,32 @@ class LemburController extends Controller
         $lembur = DB::table('lembur')
             ->select('*')
             ->where('email', Auth::user()->email)
-            ->get();
+            ->latest()
+            ->paginate(10);
         return response()->json([
             'status' => true,
             'message' => 'Get data berhasil',
             'data' => $lembur
         ]);
     }  
+    public function searchlemburpeg($key)
+    {
+            $result = DB::table('lembur')
+                ->select('*')
+                ->where('lembur.email', Auth::user()->email)
+                ->where('tanggal_lembur', 'like', '%' . $key . '%')
+                ->orWhere('status_lembur', 'like', '%' . $key . '%')
+                ->orWhere('jammulai', 'like', '%' . $key . '%')
+                ->orWhere('jamselesai', 'like', '%' . $key . '%')
+                ->orWhere('aktifitas', 'like', '%' . $key . '%')
+                ->orWhere('status_lembur', 'like', '%' . $key . '%')
+                ->where('lembur.email', Auth::user()->email)
+                ->latest()
+                ->paginate(10);
+
+            return $result;
+
+    }
     public function tambahlembur(Request $request){
         if($request->hasfile('buktilembur')){
             $filename = str_replace('','',$request->file('buktilembur')->getClientOriginalName());

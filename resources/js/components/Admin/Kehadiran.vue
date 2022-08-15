@@ -102,7 +102,9 @@
                                                                         <span class="badge badge-danger" v-else-if="data.keterangan == 'Terlambat'" >{{data.keterangan}}</span>
 																		 <span class="badge badge-primary" v-else-if="data.keterangan == 'Request Attendance'" >{{data.keterangan}}</span>
                                                                     </td>
-                                                                    <td>{{ data.lokasi }}</td>
+                                                                     <td>
+                                                                         <span class="badge badge-info" style="cursor:pointer" @click.prevent="mapmodal(data.latitude, data.longitude)">Detail Lokasi</span>
+                                                                    </td>
                                                                    
                                                                     <td style="text-align: center;">
                                                                           <a  class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2 flaticon2-document" data-toggle="modal" data-target="#detailmodal" @click.prevent="detailabsen(data.uid)">
@@ -126,6 +128,27 @@
 								<!--end::Teachers-->
 							</div>
 							<!--end::Container-->
+<div class="modal fade" id="mapmodal" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+															<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
+																<div class="modal-content" >
+																	<div class="modal-header">
+																		<h5 class="modal-title" id="mapmodal">Lokasi Pegawai</h5>
+																		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																			<i aria-hidden="true" @click="closeMap()" class="ki ki-close"></i>
+																		</button>
+																	</div>
+																	<div class="modal-body" id="map">
+																		<div >
+																			
+																		</div>
+																	</div>
+																	<div class="modal-footer">
+																		
+																		<button type="button"  data-dismiss="modal" class="btn btn-primary font-weight-bold" @click="closeMap()">Tutup</button>
+																	</div>
+																</div>
+															</div>
+														</div>                            
 
 <div class="modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
 															<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
@@ -197,6 +220,20 @@ export default {
         })
     },
     methods:{
+        initMap() {
+        // The location of Uluru
+        const uluru = { lat: -25.344, lng: 131.031 };
+        // The map, centered at Uluru
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 16,
+            center: uluru,
+        });
+        // The marker, positioned at Uluru
+        const marker = new google.maps.Marker({
+            position: uluru,
+            map: map,
+        });
+        },
          searchabsen(val) {
             if (val == "")
             {
@@ -221,7 +258,24 @@ export default {
 		convertToSeconds(hours, minutes, seconds) {
 		return Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(seconds);
 		},
-
+        mapmodal(latitude, longitude){
+             $('#mapmodal').modal('show')
+             this.latt = latitude
+             this.long = longitude
+             console.log(parseFloat(latitude))
+             console.log(parseFloat(longitude))
+             const lokasi = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+            //  this.initMap();
+              const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 16,
+            center: lokasi,
+            });
+            // The marker, positioned at Uluru
+            const marker = new google.maps.Marker({
+                position: lokasi,
+                map: map,
+            });
+         },
     	detailabsen(uid){
              $('#detailmodal').modal('show')
              axios.get('/api/detailabsen/'+uid,{
@@ -232,6 +286,9 @@ export default {
          },
         close(){
              $('#detailmodal').modal('hide')
+         },
+         closeMap(){
+             $('#mapmodal').modal('hide')
          },
         getpt(){
             this.$axios.get('/sanctum/csrf-cookie').then(response => {
@@ -270,6 +327,7 @@ export default {
     mounted(){
         this.getpt();
 		this.tampilabsen();
+        this.initMap();
     },
     computed: {
     
@@ -281,5 +339,14 @@ export default {
 
 
 </script>
+<style scoped>
+#map {
+  height: 800px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
+}
+
+</style>
 
 

@@ -56,6 +56,20 @@ class IzinController extends Controller
     ]);
 
     }
+    public function searchizinpeg($key)
+    {
+            $result = DB::table('izin')
+                ->select('*')
+                ->where('izin.email', Auth::user()->email)
+                ->where('jenis_izin', 'like', '%' . $key . '%')
+                ->orWhere('status_izin', 'like', '%' . $key . '%')
+                ->orWhere('tanggal', 'like', '%' . $key . '%')
+                ->where('izin.email', Auth::user()->email)
+                ->latest()
+                ->paginate(10);
+            return $result;
+
+    }
 
     public function ajukanizin(Request $request){
         if($request->hasfile('bukti')){

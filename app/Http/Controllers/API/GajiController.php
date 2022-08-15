@@ -32,6 +32,7 @@ class GajiController extends Controller
         $tunjangan = DB::table('datagaji')
         ->select('*')
         ->where('id_admin', Auth::user()->id)
+        ->latest()
         ->get();
     return response([
         'data' => $tunjangan,
@@ -78,12 +79,25 @@ class GajiController extends Controller
         $tunjangan = DB::table('tunjangan')
         ->select('*')
         ->where('id_admin', Auth::user()->id)
+        ->latest()
         ->get();
     return response([
         'data' => $tunjangan,
         'message' => 'get data berhasil',
         'status' => true
     ]);
+    }
+    public function searchtunjangan($key)
+    {
+            $result = DB::table('tunjangan')
+                ->select('*')
+                ->where('tunjangan.id_admin', Auth::user()->id)
+                ->where('jenis_tunjangan', 'like', '%' . $key . '%')
+                ->where('tunjangan.id_admin', Auth::user()->id)
+                ->latest()
+                ->get();
+            return $result;
+
     }
 
     //bonus
@@ -140,12 +154,25 @@ class GajiController extends Controller
         $bonus = DB::table('bonus')
         ->select('*')
         ->where('id_admin', Auth::user()->id)
+        ->latest()
         ->get();
     return response([
         'data' => $bonus,
         'message' => 'get data berhasil',
         'status' => true
     ]);
+    }
+    public function searchbonus($key)
+    {
+            $result = DB::table('bonus')
+                ->select('*')
+                ->where('bonus.id_admin', Auth::user()->id)
+                ->where('jenis_bonus', 'like', '%' . $key . '%')
+                ->where('bonus.id_admin', Auth::user()->id)
+                ->latest()
+                ->get();
+            return $result;
+
     }
     
     public function tambahpotongan(Request $request){
@@ -201,11 +228,24 @@ class GajiController extends Controller
         $bonus = DB::table('potongan')
         ->select('*')
         ->where('id_admin', Auth::user()->id)
+        ->latest()
         ->get();
     return response([
         'data' => $bonus,
         'message' => 'get data berhasil',
         'status' => true
     ]);
+    }
+    public function searchpotongan($key)
+    {
+            $result = DB::table('potongan')
+                ->select('*')
+                ->where('potongan.id_admin', Auth::user()->id)
+                ->where('jenis_potongan', 'like', '%' . $key . '%')
+                ->where('potongan.id_admin', Auth::user()->id)
+                ->latest()
+                ->get();
+            return $result;
+
     }
 }

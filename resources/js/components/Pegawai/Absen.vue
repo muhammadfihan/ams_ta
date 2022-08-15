@@ -37,36 +37,24 @@
 												<!--begin::Search Form-->
 												<div class="mb-10">
 													<div class="row align-items-center">
-														<div class="col-lg-9 col-xl-8">
+														<div class="col-lg-12 col-xl-8">
+															 <form>
 															<div class="row align-items-center">
 																<div class="col-md-4 my-2 my-md-0">
 																	<div class="input-icon">
-																		<input type="text" class="form-control form-control-solid" placeholder="Search..." id="kt_datatable_search_query" />
+																		<input v-model="search" type="text" class="form-control form-control-solid" placeholder="Search..."  />
 																		<span>
 																			<i class="flaticon2-search-1 text-muted"></i>
 																		</span>
 																	</div>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_status">
-																		<option value="">Status</option>
-																		<option value="1">Pending</option>
-																		<option value="2">Delivered</option>
-																		<option value="3">Canceled</option>
-																	</select>
+																<div>
+																	<div>
+																	<a class="btn btn-light-primary px-6 font-weight-bold">Search</a>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_type">
-																		<option value="">Type</option>
-																		<option value="4">Success</option>
-																		<option value="5">Info</option>
-																		<option value="6">Danger</option>
-																	</select>
 																</div>
 															</div>
-														</div>
-														<div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-															<a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+														  </form>
 														</div>
 													</div>
 												</div>
@@ -86,7 +74,7 @@
                                                         </tr>
                                                         </thead>
                                                          <tbody>
-                                                            <tr v-for="(data,index) in absensipegawai" :key="data.id">
+                                                            <tr v-for="(data,index) in absensipegawai.data" :key="data.id">
                                                                     <td>{{index+1}} </td>
                                                                      <td>{{ data.tanggal }}</td>
                                                                     <td>
@@ -164,6 +152,7 @@ export default {
     name: "Kehadiran",
     data() {
         return {
+			search: '',
             infopt:[],
             detabsen:[],
             absensipegawai : [],
@@ -173,8 +162,31 @@ export default {
     },
 
      created() {
-         this.$axios.get('/sanctum/csrf-cookie').then(response => {
-            this.$axios.get('/api/tampilpegawai',{
+        
+    },
+	watch:{
+		search: function(){
+			this.searchabsen(this.search)
+		}
+	},
+    methods:{
+		searchabsen(val) {
+            if (val == "")
+            {
+                this.tampilabsen()
+            }else {
+                axios
+                    .get('/api/searchabsenpeg/'+ val , {
+                        headers: {Authorization: "Bearer " + this.token},
+                    })
+                    .then((response) => {
+                        this.absensipegawai = response.data;
+                    });
+            }
+        },
+		tampilabsen(page = 1){
+			 this.$axios.get('/sanctum/csrf-cookie').then(response => {
+            this.$axios.get('/api/tampilpegawai?page='+page,{
                 headers: {Authorization: "Bearer " + this.token},
             })
                 .then(response => {
@@ -184,18 +196,17 @@ export default {
                     console.error(error);
                 });
         })
-    },
-    methods:{
-		  format(time){
+		},
+		format(time){
 		if (time != null){
 			return time.replace(/(?:0)?(\d+):(?:0)?(\d+).*/,'$1 Jam');
 		}
         
 		},
-          close(){
+        close(){
              $('#detailmodal').modal('hide')
-         },
-         getpt(){
+        },
+        getpt(){
             this.$axios.get('/sanctum/csrf-cookie').then(response => {
             this.$axios.get('/api/infoptpeg',{
                 headers: {Authorization: "Bearer " + this.token},
@@ -211,6 +222,7 @@ export default {
     },
     mounted(){
         this.getpt();
+		this.tampilabsen();
     }
     
 

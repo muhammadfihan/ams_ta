@@ -99,6 +99,7 @@ class DataPegawaiController extends Controller
                 ->orWhere('status', 'like', '%' . $key . '%')
                 ->orWhere('gender', 'like', '%' . $key . '%')
                 ->where('pegawais.id_admin', Auth::user()->id)
+                ->latest()
                 ->paginate(10);
 
             return $result;
@@ -147,16 +148,6 @@ class DataPegawaiController extends Controller
     public function updatepegawai(Request $request)
     {
         
-            // DB::table('pegawais')->where('id', $request->id)->update([
-            //     'name' => $request->name,
-            //     'id_jabatan' => $request->id_jabatan,
-            //     'status' => $request->status
-            // ]);
-
-            // return response()->json([
-            //     'success' => true,
-            //     'message' => 'Update Data Berhasil!',
-            // ]);
             $validate = Validator::make($request->all(), [
                 'id_jabatan' => 'required',
                 'status' => 'required'

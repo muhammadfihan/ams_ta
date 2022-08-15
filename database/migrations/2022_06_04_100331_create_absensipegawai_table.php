@@ -27,7 +27,8 @@ return new class extends Migration
             $table->time('jam_pulang')->nullable();
             $table->time('jam_kerja')->nullable();
             $table->string('keterangan')->nullable();
-            $table->string('lokasi');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->timestamps();
         });
     }

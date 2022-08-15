@@ -265,7 +265,7 @@
 												</div>
 												<!--end::Item-->
 												<!--begin::Item-->
-												<div class="mb-6">
+												<div class="mb-6" >
 													<!--begin::Content-->
 													<div class="d-flex align-items-center flex-grow-1">
 														<!--begin::Checkbox-->
@@ -753,6 +753,7 @@ export default {
     name: "PegawaiDashboard",
     data() {
             return {
+				map : '',
                 absensimasuk:[],
                 pegawais:[],
                 jabatan:[],
@@ -782,6 +783,12 @@ export default {
         },
     
     methods: {
+		initMap() {
+		const map = new google.maps.Map(document.getElementById("map"), {
+			center: { lat: -34.397, lng: 150.644 },
+			zoom: 8,
+		});
+		},
     	history(){
             this.$router.push("/Absen");
         },

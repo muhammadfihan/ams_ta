@@ -190,7 +190,6 @@ class DataGajiController extends Controller
         }
         foreach($tunjangan as $a => $jab){
             $jabat[$a] = explode(',', $jab->id_jabatan);
-
             foreach($jabat[$a] as $batan => $tan){ 
                 $datajab[$a][$batan] = DB::table('jabatan')->where('id', $tan)->first();
                 $jabgaji[$a][$batan] = $datajab[$a][$batan]->gaji;

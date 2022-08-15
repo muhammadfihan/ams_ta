@@ -29,13 +29,14 @@ class ReqAbsenController extends Controller
     {
             $result = DB::table('reqabsen')
                 ->select('*')
+                ->where('reqabsen.id_admin', Auth::user()->id)
                 ->where('name', 'like', '%' . $key . '%')
-                ->orWhere('name', 'like', '%' . $key . '%')
                 ->orWhere('nama_lengkap', 'like', '%' . $key . '%')
                 ->orWhere('email', 'like', '%' . $key . '%')
                 ->orWhere('no_pegawai', 'like', '%' . $key . '%')
                 ->orWhere('status_req', 'like', '%' . $key . '%')
                 ->orWhere('tanggal_req', 'like', '%' . $key . '%')
+                ->where('reqabsen.id_admin', Auth::user()->id)
                 ->paginate(10);
 
             return $result;
@@ -55,6 +56,23 @@ class ReqAbsenController extends Controller
     ]);
 
     }
+    public function searchreqabsenpeg($key)
+    {
+            $result = DB::table('reqabsen')
+                ->select('*')
+                ->where('reqabsen.email', Auth::user()->email)
+                ->where('tanggal', 'like', '%' . $key . '%')
+                ->orWhere('alasan', 'like', '%'. $key . '%')
+                ->orWhere('status_req', 'like', '%' . $key . '%')
+                ->orWhere('tanggal_req', 'like', '%' . $key . '%')
+                ->where('reqabsen.email', Auth::user()->email)
+                ->latest()
+                ->paginate(10);
+
+            return $result;
+
+    }
+
     public function ajukanreqabsen(Request $request){
         if($request->hasfile('bukti_pendukung')){
             $file_path = "files/";

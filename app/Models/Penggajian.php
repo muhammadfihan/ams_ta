@@ -11,7 +11,6 @@ class Penggajian extends Model
 
     protected $table = "penggajian";
     protected $fillable = [
-        'email',
         'id_admin',
         'email',
         'tanggal',

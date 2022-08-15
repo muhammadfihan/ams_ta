@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('status')->default('Belum Diambil');
             $table->date('tanggal_ambil')->nullable();
             $table->timestamps();
+
         });
     }
 

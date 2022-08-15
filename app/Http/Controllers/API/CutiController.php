@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use DateTime;
+use DateTimeZone;
 
 class CutiController extends Controller
 {
@@ -51,7 +52,7 @@ class CutiController extends Controller
             ->select('*')
             ->where('email', Auth::user()->email)
             ->latest()
-            ->get();
+            ->paginate(10);
         return response()->json([
             'status' => true,
             'message' => 'Get data berhasil',
@@ -63,19 +64,16 @@ class CutiController extends Controller
             $result = DB::table('cuti')
                 ->select('*')
                 ->where('cuti.email', Auth::user()->email)
-                ->where('email', 'like', '%' . $key . '%')
-                ->orWhere('no_pegawai', 'like', '%' . $key . '%')
-                ->orWhere('nama_lengkap', 'like', '%' . $key . '%')
-                ->orWhere('tanggal_mulai', 'like', '%' . $key . '%')
+                ->where('tanggal_mulai', 'like', '%' . $key . '%')
                 ->orWhere('tanggal_akhir', 'like', '%' . $key . '%')
                 ->orWhere('tanggal_cuti', 'like', '%' . $key . '%')
                 ->orWhere('jenis_cuti', 'like', '%' . $key . '%')
+                ->orWhere('keterangan', 'like', '%' . $key . '%')
                 ->orWhere('status_cuti', 'like', '%' . $key . '%')
                 ->where('cuti.email', Auth::user()->email)
+                ->latest()
                 ->paginate(10);
-
             return $result;
-
     }
     public function tambahcuti(Request $request){
         // return $request->all();
@@ -237,4 +235,5 @@ class CutiController extends Controller
            'status' => true,
        ]);
     }
+
 }

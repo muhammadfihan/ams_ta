@@ -64,8 +64,6 @@ class AbsensiController extends Controller
             ->first();
 
             $ip = $request->ip();
-            $lokasi = geoip()->getLocation($ip)->city;
-            $kodepos = geoip()->getLocation($ip)->postal_code;
             $loc = geoip()->getLocation($ip)->lat;
             $loc2 = geoip()->getLocation($ip)->lon;
             $absen = Absensi::create([
@@ -77,7 +75,8 @@ class AbsensiController extends Controller
                 'selfie_masuk' => $filename,
                 'tanggal' => $tanggal,
                 'jam_masuk' => $localtime,
-                'lokasi' => implode("," , array($loc,$loc2))
+                'latitude' => $loc,
+                'longitude' => $loc2
             ]);
             if ($absen->jam_masuk <= $masuk){
                 $ket = [
@@ -149,6 +148,7 @@ class AbsensiController extends Controller
                 ->orWhere('jam_masuk', 'like', '%' . $key . '%')
                 ->orWhere('jam_pulang', 'like', '%' . $key . '%')
                 ->where('absensipegawai.id_admin', Auth::user()->id)
+                ->latest()
                 ->paginate(10);
 
             return $result;
@@ -158,14 +158,13 @@ class AbsensiController extends Controller
     {
             $result = DB::table('absensipegawai')
                 ->select('*')
-                ->where('absensipegawai.id_admin', Auth::user()->id)
-                ->where('email', 'like', '%' . $key . '%')
-                ->orWhere('name', 'like', '%' . $key . '%')
+                ->where('absensipegawai.email', Auth::user()->email)
+                ->where('tanggal', 'like', '%' . $key . '%')
+                ->orWhere('jam_masuk', 'like', '%' . $key . '%')
                 ->orWhere('keterangan', 'like', '%' . $key . '%')
-                ->orWhere('nama_lengkap', 'like', '%' . $key . '%')
-                ->orWhere('lokasi', 'like', '%' . $key . '%')
-                ->orWhere('tanggal_mulai', 'like', '%' . $key . '%')
-                ->where('absensipegawai.id_admin', Auth::user()->id)
+                ->orWhere('jam_pulang', 'like', '%' . $key . '%')
+                ->where('absensipegawai.email', Auth::user()->email)
+                ->latest()
                 ->paginate(10);
 
             return $result;

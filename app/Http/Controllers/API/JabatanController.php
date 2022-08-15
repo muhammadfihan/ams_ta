@@ -30,6 +30,7 @@ class JabatanController extends Controller
         $jabatan = DB::table('jabatan')
             ->select('*')
             ->where('id_admin', Auth::user()->id)
+            ->latest()
             ->paginate(10);
         return response([
             'data' => $jabatan,
@@ -44,6 +45,7 @@ class JabatanController extends Controller
                 ->where('jabatan.id_admin', Auth::user()->id)
                 ->where('jabatan', 'like', '%' . $key . '%')
                 ->where('jabatan.id_admin', Auth::user()->id)
+                ->latest()
                 ->paginate(10);
 
             return $result;

@@ -18,25 +18,54 @@ class LaporanController extends Controller
         $laporan = DB::table('laporan')
             ->select('*')
             ->where('id_admin', Auth::user()->id)
-            ->get();
+            ->latest()
+            ->paginate(10);
         return response()->json([
             'status' => true,
             'message' => 'Get data berhasil',
             'data' => $laporan
         ]);
+    }
+    public function searchlaporan($key)
+    {
+            $result = DB::table('laporan')
+                ->select('*')
+                ->where('laporan.id_admin', Auth::user()->id)
+                ->where('tanggal_laporan', 'like', '%' . $key . '%')
+                ->orWhere('email', 'like', '%' . $key . '%')
+                ->orWhere('nama_lengkap', 'like', '%' . $key . '%')
+                ->orWhere('status_laporan', 'like', '%' . $key . '%')
+                ->where('laporan.id_admin', Auth::user()->id)
+                ->latest()
+                ->paginate(10);
+            return $result;
     }
     public function tampillaporanpegawai()
     {
         $laporan = DB::table('laporan')
             ->select('*')
             ->where('email', Auth::user()->email)
-            ->get();
+            ->latest()
+            ->paginate(10);
         return response()->json([
             'status' => true,
             'message' => 'Get data berhasil',
             'data' => $laporan
         ]);
     }
+    public function searchlaporanpeg($key)
+    {
+            $result = DB::table('laporan')
+                ->select('*')
+                ->where('laporan.email', Auth::user()->email)
+                ->where('tanggal_laporan', 'like', '%' . $key . '%')
+                ->orWhere('status_laporan', 'like', '%' . $key . '%')
+                ->where('laporan.email', Auth::user()->email)
+                ->latest()
+                ->paginate(10);
+            return $result;
+    }
+
     public function tambahlaporan(Request $request){
      if($request->hasfile('lampiran')){
         $filename = str_replace('','',$request->file('lampiran')->getClientOriginalName());

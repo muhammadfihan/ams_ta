@@ -18,12 +18,25 @@ class GolonganController extends Controller
         $golongan = DB::table('golongan')
             ->select('*')
             ->where('id_admin', Auth::user()->id)
+            ->latest()
             ->get();
         return response([
             'data' => $golongan,
             'message' => 'get data berhasil',
             'status' => true
         ]);
+    }
+    public function searchgolongan($key)
+    {
+            $result = DB::table('golongan')
+                ->select('*')
+                ->where('golongan.id_admin', Auth::user()->id)
+                ->where('golongan', 'like', '%' . $key . '%')
+                ->orWhere('pendidikan', 'like', '%' . $key . '%')
+                ->where('golongan.id_admin', Auth::user()->id)
+                ->latest()
+                ->get();
+            return $result;
     }
 
     public function golonganpegawai()

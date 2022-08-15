@@ -121,18 +121,6 @@
 												<!--end::Nav Tabs-->
 												<!--begin::Nav Content-->
 												<div class="tab-content m-0 p-0">
-													<!-- <div class="tab-pane show active" id="forms_widget_tab_1s" role="tabpanel">
-                                                        A
-                                                    </div>
-													<div class="tab-pane" id="forms_widget_tab_2" role="tabpanel">
-                                                        B
-                                                    </div>
-													<div class="tab-pane" id="forms_widget_tab_3" role="tabpanel">
-                                                        C
-                                                    </div>
-													<div class="tab-pane" id="forms_widget_tab_4" role="tabpanel">
-                                                        D
-                                                    </div> -->
 												</div>
 												<!--end::Nav Content-->
 											</div>
@@ -167,36 +155,24 @@
 												<!--begin::Search Form-->
 												<div class="mb-10">
 													<div class="row align-items-center">
-														<div class="col-lg-9 col-xl-8">
+														<div class="col-lg-12 col-xl-8">
+															 <form>
 															<div class="row align-items-center">
 																<div class="col-md-4 my-2 my-md-0">
 																	<div class="input-icon">
-																		<input type="text" class="form-control form-control-solid" placeholder="Search..." id="kt_datatable_search_query" />
+																		<input v-model="search" type="text" class="form-control form-control-solid" placeholder="Search..."  />
 																		<span>
 																			<i class="flaticon2-search-1 text-muted"></i>
 																		</span>
 																	</div>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_status">
-																		<option value="">Status</option>
-																		<option value="1">Pending</option>
-																		<option value="2">Delivered</option>
-																		<option value="3">Canceled</option>
-																	</select>
+																<div>
+																	<div>
+																	<a class="btn btn-light-primary px-6 font-weight-bold">Search</a>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_type">
-																		<option value="">Type</option>
-																		<option value="4">Success</option>
-																		<option value="5">Info</option>
-																		<option value="6">Danger</option>
-																	</select>
 																</div>
 															</div>
-														</div>
-														<div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-															<a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+														  </form>
 														</div>
 													</div>
 												</div>
@@ -289,36 +265,24 @@
 												<!--begin::Search Form-->
 												<div class="mb-10">
 													<div class="row align-items-center">
-														<div class="col-lg-9 col-xl-8">
+														<div class="col-lg-12 col-xl-8">
+															 <form>
 															<div class="row align-items-center">
 																<div class="col-md-4 my-2 my-md-0">
 																	<div class="input-icon">
-																		<input type="text" class="form-control form-control-solid" placeholder="Search..." id="kt_datatable_search_query" />
+																		<input v-model="search1" type="text" class="form-control form-control-solid" placeholder="Search..."  />
 																		<span>
 																			<i class="flaticon2-search-1 text-muted"></i>
 																		</span>
 																	</div>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_status">
-																		<option value="">Status</option>
-																		<option value="1">Pending</option>
-																		<option value="2">Delivered</option>
-																		<option value="3">Canceled</option>
-																	</select>
+																<div>
+																	<div>
+																	<a class="btn btn-light-primary px-6 font-weight-bold">Search</a>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_type">
-																		<option value="">Type</option>
-																		<option value="4">Success</option>
-																		<option value="5">Info</option>
-																		<option value="6">Danger</option>
-																	</select>
 																</div>
 															</div>
-														</div>
-														<div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-															<a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+														  </form>
 														</div>
 													</div>
 												</div>
@@ -340,7 +304,7 @@
                                                         </tr>
                                                         </thead>
                                                          <tbody>
-                                                            <tr v-for="(data,index) in alllembur" :key="data.id">
+                                                            <tr v-for="(data,index) in alllembur.data" :key="data.id">
                                                                     <td>{{index+1}} </td>
 																	<td>{{ data.tanggal_lembur}}</td> 
 																	<td>{{ data.no_pegawai }}</td>
@@ -405,36 +369,24 @@
 												<!--begin::Search Form-->
 												<div class="mb-10">
 													<div class="row align-items-center">
-														<div class="col-lg-9 col-xl-8">
+														<div class="col-lg-12 col-xl-8">
+															 <form>
 															<div class="row align-items-center">
 																<div class="col-md-4 my-2 my-md-0">
 																	<div class="input-icon">
-																		<input type="text" class="form-control form-control-solid" placeholder="Search..." id="kt_datatable_search_query" />
+																		<input v-model="search2" type="text" class="form-control form-control-solid" placeholder="Search..."  />
 																		<span>
 																			<i class="flaticon2-search-1 text-muted"></i>
 																		</span>
 																	</div>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_status">
-																		<option value="">Status</option>
-																		<option value="1">Pending</option>
-																		<option value="2">Delivered</option>
-																		<option value="3">Canceled</option>
-																	</select>
+																<div>
+																	<div>
+																	<a class="btn btn-light-primary px-6 font-weight-bold">Search</a>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_type">
-																		<option value="">Type</option>
-																		<option value="4">Success</option>
-																		<option value="5">Info</option>
-																		<option value="6">Danger</option>
-																	</select>
 																</div>
 															</div>
-														</div>
-														<div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-															<a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+														  </form>
 														</div>
 													</div>
 												</div>
@@ -455,7 +407,7 @@
                                                         </tr>
                                                         </thead>
                                                          <tbody>
-                                                            <tr v-for="(data,index) in allreqabsen" :key="data.id">
+                                                            <tr v-for="(data,index) in allreqabsen.data" :key="data.id">
                                                                     <td>
                                                                         <label class="checkbox-wrap checkbox-success">
                                                                             <input type="checkbox">
@@ -524,36 +476,24 @@
 												<!--begin::Search Form-->
 												<div class="mb-10">
 													<div class="row align-items-center">
-														<div class="col-lg-9 col-xl-8">
+														<div class="col-lg-12 col-xl-8">
+															 <form>
 															<div class="row align-items-center">
 																<div class="col-md-4 my-2 my-md-0">
 																	<div class="input-icon">
-																		<input type="text" class="form-control form-control-solid" placeholder="Search..." id="kt_datatable_search_query" />
+																		<input v-model="search3" type="text" class="form-control form-control-solid" placeholder="Search..."  />
 																		<span>
 																			<i class="flaticon2-search-1 text-muted"></i>
 																		</span>
 																	</div>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_status">
-																		<option value="">Status</option>
-																		<option value="1">Pending</option>
-																		<option value="2">Delivered</option>
-																		<option value="3">Canceled</option>
-																	</select>
+																<div>
+																	<div>
+																	<a class="btn btn-light-primary px-6 font-weight-bold">Search</a>
 																</div>
-																<div class="col-md-4 my-2 my-md-0">
-																	<select class="form-control form-control-solid" id="kt_datatable_search_type">
-																		<option value="">Type</option>
-																		<option value="4">Success</option>
-																		<option value="5">Info</option>
-																		<option value="6">Danger</option>
-																	</select>
 																</div>
 															</div>
-														</div>
-														<div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-															<a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+														  </form>
 														</div>
 													</div>
 												</div>
@@ -576,7 +516,7 @@
                                                         </tr>
                                                         </thead>
                                                          <tbody>
-                                                            <tr v-for="(data,index) in allcuti" :key="data.id">
+                                                            <tr v-for="(data,index) in allcuti.data" :key="data.id">
                                                                     <td>{{index+1}} </td>
                                                                      <td>{{ data.tanggal_cuti}}</td>
 																	<td>{{ data.no_pegawai }}</td>
@@ -1212,11 +1152,89 @@ export default {
                 keterangan : "",
 				bukti_cuti:"",
             }),
+			search: '',
+			search1: '',
+			search2: '',
+			search3: '',
             token: localStorage.getItem("token"),
             role: localStorage.getItem('role'),
         }
     },
+	  watch: {
+                search: function ()
+                {
+                    this.searchizinpeg(this.search)
+                },
+				search1: function ()
+                {
+                    this.searchlemburpeg(this.search1)
+                },
+				search2: function ()
+                {
+                    this.searchreabsenpeg(this.search2)
+                },
+				search3: function ()
+                {
+                    this.searchcuti(this.search3)
+                }
+        },
     methods:{
+		searchizinpeg(val) {
+            if (val == "")
+            {
+                this.allIzinPegawai()
+            }else {
+                axios
+                    .get('/api/searchizinpeg/'+ val , {
+                        headers: {Authorization: "Bearer " + this.token},
+                    })
+                    .then((response) => {
+                        this.allizin = response.data;
+                    });
+            }
+        },
+		searchlemburpeg(val) {
+            if (val == "")
+            {
+                this.tampillemburPegawai()
+            }else {
+                axios
+                    .get('/api/searchlemburpeg/'+ val , {
+                        headers: {Authorization: "Bearer " + this.token},
+                    })
+                    .then((response) => {
+                        this.alllembur = response.data;
+                    });
+            }
+        },
+		searchreqabsenpeg(val) {
+            if (val == "")
+            {
+                this.allReqPegawai()
+            }else {
+                axios
+                    .get('/api/searchreqabsenpeg/'+ val , {
+                        headers: {Authorization: "Bearer " + this.token},
+                    })
+                    .then((response) => {
+                        this.allreqabsen = response.data;
+                    });
+            }
+        },
+		searchcutipeg(val) {
+            if (val == "")
+            {
+                this.tampilcutiPegawai()
+            }else {
+                axios
+                    .get('/api/searchcutipeg/'+ val , {
+                        headers: {Authorization: "Bearer " + this.token},
+                    })
+                    .then((response) => {
+                        this.allcuti = response.data;
+                    });
+            }
+        },
 		upload(e){
 			let files = e.target.files[0]
 			this.preview = URL.createObjectURL(files)
@@ -1772,9 +1790,9 @@ export default {
         })
 
 		},
-		tampillemburPegawai(){
+		tampillemburPegawai(page = 1){
 			 this.$axios.get('/sanctum/csrf-cookie').then(response => {
-            this.$axios.get('/api/tampillemburpegawai',{
+            this.$axios.get('/api/tampillemburpegawai?page=' + page,{
                 headers: {Authorization: "Bearer " + this.token},
             })
                 .then(response => {
@@ -1786,9 +1804,9 @@ export default {
         })
 
 		},
-		tampilcutiPegawai(){
+		tampilcutiPegawai(page = 1){
 			 this.$axios.get('/sanctum/csrf-cookie').then(response => {
-            this.$axios.get('/api/tampilcutip',{
+            this.$axios.get('/api/tampilcutip?page=' + page,{
                 headers: {Authorization: "Bearer " + this.token},
             })
                 .then(response => {
@@ -1800,9 +1818,9 @@ export default {
         })
 
 		},
-		allReqPegawai(){
+		allReqPegawai(page = 1){
 			 this.$axios.get('/sanctum/csrf-cookie').then(response => {
-            this.$axios.get('/api/allreqpegawai',{
+            this.$axios.get('/api/allreqpegawai?page=' + page,{
                 headers: {Authorization: "Bearer " + this.token},
             })
                 .then(response => {

@@ -153,12 +153,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('searchabsen/{data}',[AbsensiController::class, 'searchabsen'])->middleware('role:Manager,Admin,Pegawai');
     Route::get('searchabsenpeg/{data}',[AbsensiController::class, 'searchabsenpeg'])->middleware('role:Manager,Admin,Pegawai');
     Route::get('searchcuti/{data}',[CutiController::class, 'searchcuti'])->middleware('role:Manager,Admin,Pegawai');
+    Route::get('searchcutipeg/{data}',[CutiController::class, 'searchcutipeg'])->middleware('role:Manager,Admin,Pegawai');
     Route::get('searchjabatan/{data}',[JabatanController::class, 'searchjabatan'])->middleware('role:Manager,Admin,Pegawai');
     Route::get('searchriwayat/{data}',[DataGajiController::class, 'searchriwayat'])->middleware('role:Manager,Admin,Pegawai');
     Route::get('searchgaji/{data}',[DataGajiController::class, 'searchgaji'])->middleware('role:Manager,Admin,Pegawai');
     Route::get('searchlembur/{data}',[LemburController::class, 'searchlembur'])->middleware('role:Manager,Admin,Pegawai');
+    Route::get('searchlemburpeg/{data}',[LemburController::class, 'searchlemburpeg'])->middleware('role:Manager,Admin,Pegawai');
     Route::get('searchizin/{data}',[IzinController::class, 'searchizin'])->middleware('role:Manager,Admin,Pegawai');
+    Route::get('searchizinpeg/{data}',[IzinController::class, 'searchizinpeg'])->middleware('role:Manager,Admin,Pegawai');
     Route::get('searchreqabsen/{data}',[ReqAbsenController::class, 'searchreqabsen'])->middleware('role:Manager,Admin,Pegawai');
+    Route::get('searchreqabsenpeg/{data}',[ReqAbsenController::class, 'searchreqabsenpeg'])->middleware('role:Manager,Admin,Pegawai');   
+    Route::get('searchlaporan/{data}',[LaporanController::class, 'searchlaporan'])->middleware('role:Manager,Admin,Pegawai');   
+    Route::get('searchlaporanpeg/{data}',[LaporanController::class, 'searchlaporanpeg'])->middleware('role:Manager,Admin,Pegawai');  
+    Route::get('searchtunjangan/{data}',[GajiController::class, 'searchtunjangan'])->middleware('role:Manager,Admin,Pegawai'); 
+    Route::get('searchbonus/{data}',[GajiController::class, 'searchbonus'])->middleware('role:Manager,Admin,Pegawai'); 
+    Route::get('searchpotongan/{data}',[GajiController::class, 'searchpotongan'])->middleware('role:Manager,Admin,Pegawai'); 
+    Route::get('searchgolongan/{data}',[GolonganController::class, 'searchgolongan'])->middleware('role:Manager,Admin,Pegawai'); 
     
     Route::get('tampillembur', [LemburController::class, 'tampillembur'])->middleware('role:Admin');
     Route::get('tampillemburpegawai', [LemburController::class, 'tampillemburpegawai'])->middleware('role:Admin,Pegawai');

@@ -20,10 +20,11 @@
 											<div class="card-header py-3">
 												<div class="card-title align-items-start flex-column">
 													<h3 class="card-label font-weight-bolder text-dark">Personal Information</h3>
-													<span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal informaiton</span>
+													<span class="text-muted font-weight-bold font-size-sm mt-1">Update your personal information</span>
 												</div>
 												<div class="card-toolbar" v-for="(data) in pegawais" :key="data.id">
-													<button type="submit" @click="showModal(data)" class="btn btn-success mr-2">Update Profile</button>
+													<button type="submit" v-if="data.nama_lengkap == null" @click="showModal(data)" class="btn btn-light-danger mr-2">Klik Disini Untuk Melengkapi Data Pegawai !</button>
+                                                    <button type="submit" v-else-if="data.nama_lengkap != null" @click="showModal(data)" class="btn btn-success mr-2">Perbarui Data</button>
                                                     <button type="submit" @click="ubahpassword(data)" class="btn btn-light-success mr-2">UbahPassword</button>
 
 												</div>
