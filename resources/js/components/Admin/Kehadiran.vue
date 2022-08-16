@@ -70,11 +70,11 @@
                                                             <th>Pegawai</th>
                                                             <th>Nama Pegawai</th>
                                                             <th>Tanggal</th>
-                                                            <th>Jam Masuk</th>
-                                                            <th>Jam Pulang</th>
+                                                            <th style="text-align: center;">Jam Masuk</th>
+                                                            <th style="text-align: center;">Jam Pulang</th>
                                                             <th>Jam Kerja</th>
-                                                            <th>Keterangan</th> 
-                                                            <th>Lokasi</th>
+                                                            <th style="text-align: center;">Keterangan</th> 
+                                                            <th style="text-align: center;">Lokasi</th>
                                                             <th style="text-align: center;">Action</th>
                                                         </tr>
                                                         </thead>
@@ -89,20 +89,20 @@
                                                                     </td>
                                                                     <td>{{ data.nama_lengkap }}</td>
                                                                     <td>{{ data.tanggal }}</td>
-                                                                    <td>
+                                                                    <td style="text-align: center;">
                                                                          <span class="badge badge-primary" >{{data.jam_masuk}}</span>
                                                                     </td>
-                                                                    <td>
+                                                                    <td style="text-align: center;">
                                                                          <span class="badge badge-success" v-if="data.jam_pulang == null" >Bekerja</span>
                                                                         <span class="badge badge-primary" v-else-if="data.jam_pulang != null" >{{data.jam_pulang}}</span>
                                                                     </td>
                                                                     <td>{{ format(data.jam_kerja) }}</td>
-                                                                     <td>
+                                                                     <td style="text-align: center;">
                                                                         <span class="badge badge-success" v-if="data.keterangan == 'On Time'" >{{data.keterangan}}</span>
                                                                         <span class="badge badge-danger" v-else-if="data.keterangan == 'Terlambat'" >{{data.keterangan}}</span>
 																		 <span class="badge badge-primary" v-else-if="data.keterangan == 'Request Attendance'" >{{data.keterangan}}</span>
                                                                     </td>
-                                                                     <td>
+                                                                     <td style="text-align: center;">
                                                                          <span class="badge badge-info" style="cursor:pointer" @click.prevent="mapmodal(data.latitude, data.longitude)">Detail Lokasi</span>
                                                                     </td>
                                                                    
@@ -202,6 +202,10 @@ export default {
             infopt:[],
             detabsen:[],
             absensipegawai : [],
+            lon: '',
+            lat: '',
+            map: '',
+            infoWindow: '',
             token: localStorage.getItem("token"),
             role: localStorage.getItem('role'),
         }
@@ -234,6 +238,7 @@ export default {
             map: map,
         });
         },
+        
          searchabsen(val) {
             if (val == "")
             {
@@ -262,6 +267,12 @@ export default {
              $('#mapmodal').modal('show')
              this.latt = latitude
              this.long = longitude
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    var lat = position.coords.latitude
+                    var lon = position.coords.longitude    
+                },
+            )   
              console.log(parseFloat(latitude))
              console.log(parseFloat(longitude))
              const lokasi = { lat: parseFloat(latitude), lng: parseFloat(longitude) };

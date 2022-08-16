@@ -63,9 +63,6 @@ class AbsensiController extends Controller
             ->pluck('jam_masuk')
             ->first();
 
-            $ip = $request->ip();
-            $loc = geoip()->getLocation($ip)->lat;
-            $loc2 = geoip()->getLocation($ip)->lon;
             $absen = Absensi::create([
                 'id' => Auth::user()->id,
                 'email' => Auth::user()->email,
@@ -75,8 +72,8 @@ class AbsensiController extends Controller
                 'selfie_masuk' => $filename,
                 'tanggal' => $tanggal,
                 'jam_masuk' => $localtime,
-                'latitude' => $loc,
-                'longitude' => $loc2
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude
             ]);
             if ($absen->jam_masuk <= $masuk){
                 $ket = [

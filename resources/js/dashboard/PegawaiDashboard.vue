@@ -771,6 +771,8 @@ export default {
                     jam_kerja : "",
                     keterangan : "",
                     lokasi : "",
+					latitude: "",
+					longitude:""
                     
                 }),
                 jamabsen: [],
@@ -790,7 +792,7 @@ export default {
 		});
 		},
     	history(){
-            this.$router.push("/Absen");
+		this.$router.push("/Absen");
         },
 		profile(){
             this.$router.push("/Profile");
@@ -823,16 +825,24 @@ export default {
         },
     
     ambil(){
-        var image = ''
+		 var image = ''
+	
         Webcam.snap( function(data_uri) {
                 image = data_uri
              } );
-            axios.post('/api/absenmasuk',  {
-                 selfie_masuk : image
+			  	 var tok = localStorage.getItem("token")
+				navigator.geolocation.getCurrentPosition(
+					function (position) {
+					 axios.post('/api/absenmasuk', 
+			{
+                 		selfie_masuk : image,
+						latitude : position.coords.latitude,
+						longitude : position.coords.longitude
+				 
              },
-             {
-                headers : { Authorization: "Bearer " + this.token },
-            }).then((response) => {
+			  {
+                headers : { Authorization: "Bearer " + tok },
+            },).then((response) => {
                 if (response.data.success){
                     Swal.fire({
                     title: 'Berhasil Presensi',
@@ -866,6 +876,16 @@ export default {
                     
                 }
             })
+					},
+					function (error) {
+						alert(error.message);
+					}, {
+						enableHighAccuracy: true
+						, timeout: 5000
+					}
+				);
+			
+           
        
     },
      ambilpulang(uid){
