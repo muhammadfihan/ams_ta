@@ -448,10 +448,6 @@ class DataGajiController extends Controller
                 $akhir[$key] = array($totaltun[$key] + $nomjab[$key] +$totalbon[$key] - $totalpot[$key]);
                 
             }
-            // foreach (array_keys($totaltun + $totalbon + $nomjab) as $key) {
-            //     $subtotal[$key] = array($totaltun[$key] + $nomjab[$key] +$totalbon[$key]);
-                
-            // }
            
         return response()->json([
             'data' => $gajipeg,

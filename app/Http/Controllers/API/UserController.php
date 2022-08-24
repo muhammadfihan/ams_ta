@@ -218,13 +218,6 @@ class UserController extends Controller
             return response()
                 ->json(['message' => 'Unauthorized', 'success'=>$success], 401);
         }
-        // $user = User::create([
-        //     'id' => $request->id,
-        //     'name' => $request->name,
-        //     'role' => $request->role,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($request->password),
-        // ]);
         $pass = "1234567890";
         $random = strtoupper(substr(str_shuffle($pass), 0, 9));
         $timezone = 'Asia/Jakarta'; 
@@ -233,10 +226,6 @@ class UserController extends Controller
         
         $datetime1 = strtotime($request->input('tanggal_masuk'));
         $datetime2 = strtotime($tanggal);
-        // $datetime2 = new DateTime($awal);
-
-        // // dd($akhir);
-        // return $akhir;
         $jumlahkerja = $datetime2 - $datetime1;
 
         $akunpegawai = AkunPegawai::create([
@@ -258,12 +247,7 @@ class UserController extends Controller
         
         $datetime1 = strtotime($request->input('tanggal_masuk'));
         $datetime2 = strtotime($tanggal);
-        // $datetime2 = new DateTime($awal);
-
-        // // dd($akhir);
-        // return $akhir;
         $jumlahkerja = $datetime2 - $datetime1;
-        // $cuti = $request->input('jatah_cuti');
 
         if($akunpegawai->jumlah_kerja >= 365){
             $nopegawai = strtoupper(substr(str_shuffle($huruf), 0, 9));
